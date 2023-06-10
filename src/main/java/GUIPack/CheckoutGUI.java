@@ -54,7 +54,7 @@ public class CheckoutGUI extends JPanel {
                 .withSize(400, 400)
                 .file();
 
-        String fileName = "C:\\Desktop\\OOP2 Projekt Samed\\Kinotastisch_p4\\Kinotastisch_oop2_p4\\src\\main\\resources\\qrgen-qrcode.png";
+        String fileName = "src/main/resources/qrgen-qrcode.png";
 
         Path path = Paths.get(fileName);
         if ( Files.exists(path)){

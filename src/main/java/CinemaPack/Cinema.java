@@ -17,7 +17,9 @@ public class Cinema {   //Cinema Klasse die Alle Filme speichert und abrufbar ma
     public static HashMap<MovieModel, ArrayList<Integer>> MovieIDsHashMap = new HashMap<>();    //Hier kann man auf alle IDs zugreifen die einem gemeinsamen MovieModel zugeteilt werden können aber unterschiedliche Uhrzeiten haben
     public static HashMap<Location, ArrayList<Integer>> LocationIDsHashMap = new HashMap<>();
 
-    public static Location currentLocation;
+    public static Location currentLocation; // Reiseziel
+
+
 
     static {
         for(MovieModel model:MovieModel.values()) {         //HashMap wird mit leeren ArrayLists gefüllt, um Fehler vorzubeugen
@@ -52,12 +54,6 @@ public class Cinema {   //Cinema Klasse die Alle Filme speichert und abrufbar ma
         IDList.add(CinemaID);
         MovieIDsHashMap.get(movie.getModel()).add(CinemaID);
         LocationIDsHashMap.get(location).add(CinemaID);
-    }
-
-    public static void addAllMoviesFromSheet() {    //Alte Methode wo es nur eine csv Datei gab
-        for(Movie movie : FileReaderIO.ReadAllMovies()) {   //Alle Filme werden gelesen
-            addMovie(movie);
-        }
     }
 
     public static void addAllMoviesFromEveryLocation() {

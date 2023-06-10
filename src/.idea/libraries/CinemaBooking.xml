@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="CinemaBooking">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/main/java/kinotastisch.jar/artifacts/CinemaBooking_jar/CinemaBooking.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

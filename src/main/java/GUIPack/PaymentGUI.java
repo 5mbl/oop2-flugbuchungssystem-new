@@ -1,6 +1,7 @@
 package GUIPack;
 
 import CinemaPack.Cinema;
+import CinemaPack.DepartureLocation;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,6 +26,7 @@ public class PaymentGUI extends JPanel {
     private final JLabel locationLabel;
     private final JLabel timeLabel;
     private final JLabel priceLabel;
+    private final JLabel departureLable;
 
     private String[] InfoArray;
 
@@ -60,18 +62,20 @@ public class PaymentGUI extends JPanel {
         InfoPanel = new JPanel();
         BottomPanel = new JPanel();
 
-        InfoArray = new String[5];
+        InfoArray = new String[6];
         InfoArray[0] = "Name: "+Cinema.get(cinemaID).getName();
         InfoArray[1] = "Location: "+Cinema.currentLocation.getName();
         InfoArray[2] = "Date/Time: "+Cinema.get(cinemaID).getTimeString();
         InfoArray[3] = "Seats: "+String.valueOf(seatList);
         InfoArray[4] = "Price: "+String.format("%.2f",((Cinema.get(cinemaID).getPrice()*Cinema.currentLocation.getPaymentFactor())*seatList.size()))+"USD";
+        InfoArray[5] = "Departure: "+ DepartureLocation.getSelectedCity();
 
         movieLabel = new JLabel(InfoArray[0]);
         locationLabel = new JLabel(InfoArray[1]);
         timeLabel = new JLabel(InfoArray[2]);
         seatLabel = new JLabel(InfoArray[3]);
         priceLabel = new JLabel(InfoArray[4]);
+        departureLable = new JLabel(InfoArray[5]);
 
         InfoPanel.setLayout(new GridLayout(4,1));
 
@@ -80,6 +84,7 @@ public class PaymentGUI extends JPanel {
         InfoPanel.add(timeLabel);
         InfoPanel.add(seatLabel);
         InfoPanel.add(priceLabel);
+        InfoPanel.add(departureLable);
 
         BottomPanel.setLayout(new GridLayout(1,4));
 

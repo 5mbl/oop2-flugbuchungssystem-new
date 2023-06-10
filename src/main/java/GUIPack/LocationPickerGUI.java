@@ -19,7 +19,7 @@ public class LocationPickerGUI extends JPanel {
     public LocationPickerGUI() {
         setLayout(new BorderLayout());
 
-        InstructionLabel = new JLabel("Select your Location");
+        InstructionLabel = new JLabel("Select your Destination");
         InstructionLabel.setPreferredSize(new Dimension(800,250));
         InstructionLabel.setSize(new Dimension(800,250));
         InstructionLabel.setFont(new Font("Bold",Font.BOLD,50));
