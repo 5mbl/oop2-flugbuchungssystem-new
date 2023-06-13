@@ -12,14 +12,4 @@ public class GUI extends JFrame {   //Das ist unser MainFrame
         pack();
     }
 
-    /* Löchen
-    public static JPanel getPanel(int ID, int cinemaID, MovieModel model) { //Methode hab ich doch nicht gebraucht
-        switch(ID) {
-            case 0 -> new MoviePickerGUI();
-            case 1 -> new TimePickerGUI(model);
-            case 2 -> new MovieDescriptionGUI(cinemaID);
-            default -> new ReservationGUI(cinemaID);
-        }
-        return null;
-    } */
 }

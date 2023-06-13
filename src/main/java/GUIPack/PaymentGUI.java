@@ -1,7 +1,7 @@
 package GUIPack;
 
-import CinemaPack.Flight;
-import CinemaPack.DepartureLocation;
+import FlightPack.Airline;
+import FlightPack.DepartureLocation;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,7 +22,7 @@ public class PaymentGUI extends JPanel {
     private final JPanel BottomPanel;
 
     private final JLabel seatLabel;
-    private final JLabel movieLabel;
+    private final JLabel flightLabel;
     private final JLabel locationLabel;
     private final JLabel timeLabel;
     private final JLabel priceLabel;
@@ -30,7 +30,7 @@ public class PaymentGUI extends JPanel {
 
     private String[] InfoArray;
 
-    public PaymentGUI(int cinemaID, ArrayList<Integer> seatList) {
+    public PaymentGUI(int airlineID, ArrayList<Integer> seatList) {
         setLayout(new BorderLayout());
 
         Abort = new JButton("Abort");
@@ -39,10 +39,10 @@ public class PaymentGUI extends JPanel {
         Abort.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                for(int i = 0; i< Flight.get(cinemaID).seatList.length; i++) {
+                for(int i = 0; i< Airline.get(airlineID).seatList.length; i++) {
                     for(Integer integer:seatList) {
                         if(integer == i) {
-                            Flight.get(cinemaID).seatList[i].changeReservationStatus();
+                            Airline.get(airlineID).seatList[i].changeReservationStatus();
                         }
                     }
                 }
@@ -63,14 +63,14 @@ public class PaymentGUI extends JPanel {
         BottomPanel = new JPanel();
 
         InfoArray = new String[6];
-        InfoArray[0] = "Name: "+ Flight.get(cinemaID).getName();
-        InfoArray[1] = "Location: "+ Flight.currentLocation.getName();
-        InfoArray[2] = "Date/Time: "+ Flight.get(cinemaID).getTimeString();
+        InfoArray[0] = "Name: "+ Airline.get(airlineID).getName();
+        InfoArray[1] = "Location: "+ Airline.currentLocation.getName();
+        InfoArray[2] = "Date/Time: "+ Airline.get(airlineID).getTimeString();
         InfoArray[3] = "Seats: "+String.valueOf(seatList);
-        InfoArray[4] = "Price: "+String.format("%.2f",((Flight.get(cinemaID).getPrice()* Flight.currentLocation.getPaymentFactor())*seatList.size()))+"USD";
+        InfoArray[4] = "Price: "+String.format("%.2f",((Airline.get(airlineID).getPrice()* Airline.currentLocation.getPaymentFactor())*seatList.size()))+"USD";
         InfoArray[5] = "Departure: "+ DepartureLocation.getSelectedCity();
 
-        movieLabel = new JLabel(InfoArray[0]);
+        flightLabel = new JLabel(InfoArray[0]);
         locationLabel = new JLabel(InfoArray[1]);
         timeLabel = new JLabel(InfoArray[2]);
         seatLabel = new JLabel(InfoArray[3]);
@@ -79,7 +79,7 @@ public class PaymentGUI extends JPanel {
 
         InfoPanel.setLayout(new GridLayout(4,1));
 
-        InfoPanel.add(movieLabel);
+        InfoPanel.add(flightLabel);
         InfoPanel.add(locationLabel);
         InfoPanel.add(timeLabel);
         InfoPanel.add(seatLabel);

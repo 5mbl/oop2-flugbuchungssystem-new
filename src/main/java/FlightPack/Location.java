@@ -1,4 +1,4 @@
-package CinemaPack;
+package FlightPack;
 
 public enum Location {
     BERLIN("Berlin","src/main/resources/BerlinDateTimeSheet.csv",2.5),HAMBURG("Hamburg","src/main/resources/HamburgDateTimeSheet.csv",1.4),DRESDEN("Dresden","src/main/resources/DresdenDateTimeSheet.csv",1.1);

@@ -1,5 +1,6 @@
 package GUIPack;
 
+import FlightPack.Airline;
 import FlightPack.Flight;
 import FlightPack.FlightModel;
 
@@ -29,12 +30,12 @@ public class TimeslotSelect extends JPanel {                                    
 
         MasterPanel.add(backButton);
 
-        for(Flight flight : CinemaPack.Flight.getMoviesFromCurrentLocation(Model)) {                                                     //Sucht jeden Movie mit dem gleichen Model in Cinema um die verschiedenen Daten zu kriegen
+        for(Flight flight : Airline.getFlightFromCurrentLocation(Model)) {                                                     //Sucht jeden Movie mit dem gleichen Model in Cinema um die verschiedenen Daten zu kriegen
             JButton button = new JButton(flight.getTimeString()); // getTime String
             button.addActionListener(new ActionListener() {                                             //ActionListener geht zur nächsten Seite
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    MyWorker worker = new MyWorker(new FlightDescriptionGUI(CinemaPack.Flight.getFlightID(flight))); //Wird benötigt um ein EDT Error zu umgehen siehe MyWorker Class
+                    MyWorker worker = new MyWorker(new FlightDescriptionGUI(Airline.getFlightID(flight))); //Wird benötigt um ein EDT Error zu umgehen siehe MyWorker Class
                     worker.execute();
                 }
             });

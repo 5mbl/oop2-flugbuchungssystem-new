@@ -1,7 +1,7 @@
 package GUIPack;
 
-import CinemaPack.Flight;
-import CinemaPack.Location;
+import FlightPack.Airline;
+import FlightPack.Location;
 
 import javax.swing.*;
 import java.awt.*;
@@ -59,17 +59,17 @@ public class DestinyLocationPickerGUI extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             if(e.getSource().equals(BerlinButton)) {
-                Flight.changeCurrentLocation(Location.BERLIN);
+                Airline.changeCurrentLocation(Location.BERLIN);
                 MyWorker worker = new MyWorker(new AirlineSelectGUI());
                 worker.execute();
             }
             if(e.getSource().equals(HamburgButton)) {
-                Flight.changeCurrentLocation(Location.HAMBURG);
+                Airline.changeCurrentLocation(Location.HAMBURG);
                 MyWorker worker = new MyWorker(new AirlineSelectGUI());
                 worker.execute();
             }
             if(e.getSource().equals(DresdenButton)) {
-                Flight.changeCurrentLocation(Location.DRESDEN);
+                Airline.changeCurrentLocation(Location.DRESDEN);
                 MyWorker worker = new MyWorker(new AirlineSelectGUI());
                 worker.execute();
             }

@@ -1,4 +1,4 @@
-package CinemaPack;
+package FlightPack;
 
 import java.util.ArrayList;
 import java.util.List;

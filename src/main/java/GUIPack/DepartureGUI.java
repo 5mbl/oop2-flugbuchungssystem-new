@@ -1,6 +1,6 @@
 package GUIPack;
 
-import CinemaPack.DepartureLocation;
+import FlightPack.DepartureLocation;
 
 import javax.swing.*;
 import java.awt.*;

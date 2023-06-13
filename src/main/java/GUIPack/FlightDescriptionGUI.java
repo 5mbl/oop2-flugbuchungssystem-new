@@ -1,5 +1,6 @@
 package GUIPack;
 
+import FlightPack.Airline;
 import FlightPack.Flight;
 
 import javax.swing.*;
@@ -17,17 +18,17 @@ public class FlightDescriptionGUI extends JPanel {
     private final JLabel ImageLabel;
     private final JLabel Time;
 
-    private final JTextArea MovieDescription;
+    private final JTextArea FlightDescription;
 
     private final JButton reservationButton;
     private final JButton backButton;
 
     private final Flight selectedFlight;
-    private final int cinemaID;
+    private final int airlineID;
 
-    public FlightDescriptionGUI(int cinemaID) {                  //Hier sieht man die Beschreibung des Films
-        selectedFlight = CinemaPack.Flight.IDFlightHashMap.get(cinemaID);    //Holt den ausgesuchten Film von Cinema
-        this.cinemaID = cinemaID;
+    public FlightDescriptionGUI(int airlineID) {                  //Hier sieht man die Beschreibung des Films
+        selectedFlight = Airline.IDFlightHashMap.get(airlineID);    //Holt den ausgesuchten Film von airline
+        this.airlineID = airlineID;
 
         setLayout(new BorderLayout());
 
@@ -58,8 +59,8 @@ public class FlightDescriptionGUI extends JPanel {
                 wrappedText.append("\n");
             }
         }
-        MovieDescription = new JTextArea(wrappedText.toString());       //Beschreibung des Films
-        MovieDescription.setFont(new Font("Arial", Font.PLAIN, 25));
+        FlightDescription = new JTextArea(wrappedText.toString());       //Beschreibung des Films
+        FlightDescription.setFont(new Font("Arial", Font.PLAIN, 25));
 
         reservationButton = new JButton("Reserve");
         backButton = new JButton("Back");
@@ -67,7 +68,7 @@ public class FlightDescriptionGUI extends JPanel {
         reservationButton.addActionListener(new ActionListener() {  //Geht zum Reservation Screen
             @Override
             public void actionPerformed(ActionEvent e) {
-                MyWorker worker = new MyWorker(new ReservationGUI(cinemaID)); //Wird benötigt, um ein EDT Error zu umgehen, siehe MyWorker Class
+                MyWorker worker = new MyWorker(new ReservationGUI(airlineID)); //Wird benötigt, um ein EDT Error zu umgehen, siehe MyWorker Class
                 worker.execute();
             }
         });
@@ -85,7 +86,7 @@ public class FlightDescriptionGUI extends JPanel {
 
         InfoMasterPanel.add(TextPanel);
 
-        TextPanel.add(MovieDescription);
+        TextPanel.add(FlightDescription);
 
         HeaderPanel.add(backButton);
         HeaderPanel.add(reservationButton);
