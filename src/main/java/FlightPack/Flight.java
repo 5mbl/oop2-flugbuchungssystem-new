@@ -1,15 +1,15 @@
-package MoviePack;
+package FlightPack;
 
 import org.joda.time.LocalDateTime;                                             //Joda time ist ein Maven plugin um Daten und Uhrzeiten leichter zu verwalten
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-public class Movie {
-    private final MovieModel Model;                                             //Dieses Model bestimmt den Film
+public class Flight {
+    private final FlightModel Model;                                             //Dieses Model bestimmt den Film
     public final LocalDateTime dateTime;                                        //Datum und Uhrzeit des Films
     public final Seat[] seatList;                                               //Seat Liste dieses Films
 
-    public Movie(MovieModel Model, LocalDateTime dateTime) {                    //Model und Datum wird angegeben
+    public Flight(FlightModel Model, LocalDateTime dateTime) {                    //Model und Datum wird angegeben
         this.Model = Model;
         this.dateTime = dateTime;
         seatList = new Seat[30];
@@ -32,7 +32,7 @@ public class Movie {
         return Model.getImagePath();
     }
 
-    public MovieModel getModel() {
+    public FlightModel getModel() {
         return Model;
     }
 

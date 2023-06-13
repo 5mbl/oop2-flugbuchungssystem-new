@@ -1,6 +1,6 @@
 package GUIPack;
 
-import MoviePack.MovieModel;
+import FlightPack.FlightModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,32 +8,32 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class MoviePickerGUI extends JPanel {                            //StartPanel also kein backButton
+public class AirlineSelectGUI extends JPanel {                            //StartPanel also kein backButton
     private final ArrayList<JButton> buttonList = new ArrayList<>();
     private final JButton backButton;
     private final JPanel MasterPanel;
 
-    public MoviePickerGUI() {
+    public AirlineSelectGUI() {
         MasterPanel = new JPanel();
-        MasterPanel.setLayout(new GridLayout(MovieModel.values().length, 1));
+        MasterPanel.setLayout(new GridLayout(FlightModel.values().length, 1));
 
         backButton = new JButton("Back");
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                MyWorker worker = new MyWorker(new LocationPickerGUI());
+                MyWorker worker = new MyWorker(new DestinyLocationPickerGUI());
                 worker.execute();
             }
         });
 
         MasterPanel.add(backButton);
 
-        for(MovieModel model:MovieModel.values()) {                     //Für alle unterschiedlichen Filme in MovieModel wird ein Button erzeugt
+        for(FlightModel model: FlightModel.values()) {                     //Für alle unterschiedlichen Filme in MovieModel wird ein Button erzeugt
             JButton button = new JButton(model.getName());
             button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    MyWorker worker = new MyWorker(new TimePickerGUI(model)); //Wird benötigt, um ein EDT Error zu umgehen, siehe MyWorker Class
+                    MyWorker worker = new MyWorker(new TimeslotSelect(model)); //Wird benötigt, um ein EDT Error zu umgehen, siehe MyWorker Class
                     worker.execute();
                 }
             });
@@ -42,7 +42,7 @@ public class MoviePickerGUI extends JPanel {                            //StartP
 
 
         for(JButton button:buttonList) { // buttonlist wird geloopt und im Jpanel angezeigt
-            button.setSize(800/5,350/MovieModel.values().length);
+            button.setSize(800/5,350/ FlightModel.values().length);
             MasterPanel.add(button);
         }
 

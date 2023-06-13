@@ -1,7 +1,6 @@
 package GUIPack;
 
-import CinemaPack.Cinema;
-import com.beust.ah.A;
+import CinemaPack.Flight;
 import net.glxn.qrgen.QRCode;
 import net.glxn.qrgen.image.ImageType;
 
@@ -37,7 +36,7 @@ public class CheckoutGUI extends JPanel {
         });
 
         StringBuilder builder = new StringBuilder();
-        builder.append(Cinema.getBillID());
+        builder.append(Flight.getBillID());
         builder.append(System.getProperty("line.separator"));
         builder.append(Name);
         builder.append(System.getProperty("line.separator"));

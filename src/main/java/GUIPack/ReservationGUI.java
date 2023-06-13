@@ -1,7 +1,6 @@
 package GUIPack;
 
-import CinemaPack.Cinema;
-import MoviePack.Movie;
+import FlightPack.Flight;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,13 +22,13 @@ public class ReservationGUI extends JPanel {
     private final JButton backButton;
 
     private final JLabel screenLabel;
-    private final Movie selectedMovie;
+    private final Flight selectedFlight;
     private boolean foundSelectedCheckbox;
 
     public ReservationGUI(int cinemaID) {  //Hier kann man reservieren
         ArrayList<Integer> reservedSeats = new ArrayList<>();
 
-        selectedMovie = Cinema.IDMovieHashMap.get(cinemaID);
+        selectedFlight = CinemaPack.Flight.IDFlightHashMap.get(cinemaID);
 
         leftPanel = new JPanel();
         midPanel = new JPanel();
@@ -42,11 +41,11 @@ public class ReservationGUI extends JPanel {
         rightPanel.setLayout(new GridLayout(2,5));
         bottomPanel.setLayout(new FlowLayout());
 
-        for(int j = 0; j<selectedMovie.seatList.length; j++) {                                              //Loop um Checkboxes zu erstellen
+        for(int j = 0; j< selectedFlight.seatList.length; j++) {                                              //Loop um Checkboxes zu erstellen
             JCheckBox checkBox = new JCheckBox(String.valueOf(j));
             //checkBox.setSelectedIcon(new ImageIcon("src/main/java/GUIPack/Images/Selected.png"));   //Icons werden festgelegt
             //checkBox.setIcon(new ImageIcon("src/main/java/GUIPack/Images/Unselected.png"));
-            if(selectedMovie.seatList[j].isReserved) {                                                      //Wenn Sitz schon reserviert ist, wird die CheckBox disabled
+            if(selectedFlight.seatList[j].isReserved) {                                                      //Wenn Sitz schon reserviert ist, wird die CheckBox disabled
                 checkBox.setEnabled(false);
             }
             checkBoxArrayList.add(checkBox);
@@ -68,7 +67,7 @@ public class ReservationGUI extends JPanel {
                 for(Component checkbox:leftPanel.getComponents()) {
                     if(checkbox.getClass() == JCheckBox.class) {
                         if (((JCheckBox) checkbox).isSelected()) {
-                            Cinema.IDMovieHashMap.get(cinemaID).reserveSeat(Integer.parseInt(((JCheckBox) checkbox).getLabel()));
+                            CinemaPack.Flight.IDFlightHashMap.get(cinemaID).reserveSeat(Integer.parseInt(((JCheckBox) checkbox).getLabel()));
                             checkbox.setEnabled(false);
                             reservedSeats.add(Integer.parseInt(((JCheckBox) checkbox).getLabel()));
                             foundSelectedCheckbox = true;
@@ -78,7 +77,7 @@ public class ReservationGUI extends JPanel {
                 for(Component checkbox:midPanel.getComponents()) {
                     if(checkbox.getClass() == JCheckBox.class) {
                         if (((JCheckBox) checkbox).isSelected()) {
-                            Cinema.IDMovieHashMap.get(cinemaID).reserveSeat(Integer.parseInt(((JCheckBox) checkbox).getLabel()));
+                            CinemaPack.Flight.IDFlightHashMap.get(cinemaID).reserveSeat(Integer.parseInt(((JCheckBox) checkbox).getLabel()));
                             checkbox.setEnabled(false);
                             reservedSeats.add(Integer.parseInt(((JCheckBox) checkbox).getLabel()));
                             foundSelectedCheckbox = true;
@@ -88,7 +87,7 @@ public class ReservationGUI extends JPanel {
                 for(Component checkbox:rightPanel.getComponents()) {
                     if(checkbox.getClass() == JCheckBox.class) {
                         if(((JCheckBox) checkbox).isSelected()) {
-                            Cinema.IDMovieHashMap.get(cinemaID).reserveSeat(Integer.parseInt(((JCheckBox) checkbox).getLabel()));
+                            CinemaPack.Flight.IDFlightHashMap.get(cinemaID).reserveSeat(Integer.parseInt(((JCheckBox) checkbox).getLabel()));
                             checkbox.setEnabled(false);
                             reservedSeats.add(Integer.parseInt(((JCheckBox) checkbox).getLabel()));
                             foundSelectedCheckbox = true;
@@ -115,10 +114,10 @@ public class ReservationGUI extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 if(!reservedSeats.isEmpty()) {
                     for(Integer integer:reservedSeats) {
-                        Cinema.IDMovieHashMap.get(cinemaID).seatList[integer].changeReservationStatus();
+                        CinemaPack.Flight.IDFlightHashMap.get(cinemaID).seatList[integer].changeReservationStatus();
                     }
                 }
-                MyWorker worker = new MyWorker(new MovieDescriptionGUI(cinemaID));  //Wird benötigt um ein EDT Error zu umgehen siehe MyWorker Class
+                MyWorker worker = new MyWorker(new FlightDescriptionGUI(cinemaID));  //Wird benötigt um ein EDT Error zu umgehen siehe MyWorker Class
                 worker.execute();
             }
         });

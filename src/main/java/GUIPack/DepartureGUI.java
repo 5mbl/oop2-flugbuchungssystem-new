@@ -34,7 +34,7 @@ public class DepartureGUI extends JPanel {
         confirmButton.addActionListener(new ActionListener() {  //Geht zum Reservation Screen
             @Override
             public void actionPerformed(ActionEvent e) {
-                MyWorker worker = new MyWorker(new LocationPickerGUI()); //Wird benötigt, um ein EDT Error zu umgehen, siehe MyWorker Class
+                MyWorker worker = new MyWorker(new DestinyLocationPickerGUI()); //Wird benötigt, um ein EDT Error zu umgehen, siehe MyWorker Class
                 worker.execute();
             }
         });

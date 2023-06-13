@@ -1,4 +1,4 @@
-package MoviePack;
+package FlightPack;
 
 public class Seat {
     public boolean isReserved;

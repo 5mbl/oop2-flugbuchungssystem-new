@@ -1,6 +1,6 @@
 package GUIPack;
 
-import CinemaPack.Cinema;
+import CinemaPack.Flight;
 import CinemaPack.Location;
 
 import javax.swing.*;
@@ -8,7 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class LocationPickerGUI extends JPanel {
+public class DestinyLocationPickerGUI extends JPanel {
     private final JLabel InstructionLabel;
 
     private final JButton BerlinButton;
@@ -16,7 +16,7 @@ public class LocationPickerGUI extends JPanel {
     private final JButton DresdenButton;
     private final JButton backButton;
 
-    public LocationPickerGUI() {
+    public DestinyLocationPickerGUI() {
         setLayout(new BorderLayout());
 
         InstructionLabel = new JLabel("Select your Destination");
@@ -59,18 +59,18 @@ public class LocationPickerGUI extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             if(e.getSource().equals(BerlinButton)) {
-                Cinema.changeCurrentLocation(Location.BERLIN);
-                MyWorker worker = new MyWorker(new MoviePickerGUI());
+                Flight.changeCurrentLocation(Location.BERLIN);
+                MyWorker worker = new MyWorker(new AirlineSelectGUI());
                 worker.execute();
             }
             if(e.getSource().equals(HamburgButton)) {
-                Cinema.changeCurrentLocation(Location.HAMBURG);
-                MyWorker worker = new MyWorker(new MoviePickerGUI());
+                Flight.changeCurrentLocation(Location.HAMBURG);
+                MyWorker worker = new MyWorker(new AirlineSelectGUI());
                 worker.execute();
             }
             if(e.getSource().equals(DresdenButton)) {
-                Cinema.changeCurrentLocation(Location.DRESDEN);
-                MyWorker worker = new MyWorker(new MoviePickerGUI());
+                Flight.changeCurrentLocation(Location.DRESDEN);
+                MyWorker worker = new MyWorker(new AirlineSelectGUI());
                 worker.execute();
             }
         }

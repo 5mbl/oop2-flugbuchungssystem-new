@@ -1,6 +1,6 @@
 package GUIPack;
 
-import CinemaPack.Cinema;
+import CinemaPack.Flight;
 import CinemaPack.DepartureLocation;
 
 import javax.swing.*;
@@ -39,14 +39,14 @@ public class PaymentGUI extends JPanel {
         Abort.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                for(int i = 0; i<Cinema.get(cinemaID).seatList.length; i++) {
+                for(int i = 0; i< Flight.get(cinemaID).seatList.length; i++) {
                     for(Integer integer:seatList) {
                         if(integer == i) {
-                            Cinema.get(cinemaID).seatList[i].changeReservationStatus();
+                            Flight.get(cinemaID).seatList[i].changeReservationStatus();
                         }
                     }
                 }
-                MyWorker worker = new MyWorker(new LocationPickerGUI());
+                MyWorker worker = new MyWorker(new DestinyLocationPickerGUI());
                 worker.execute();
             }
         });
@@ -63,11 +63,11 @@ public class PaymentGUI extends JPanel {
         BottomPanel = new JPanel();
 
         InfoArray = new String[6];
-        InfoArray[0] = "Name: "+Cinema.get(cinemaID).getName();
-        InfoArray[1] = "Location: "+Cinema.currentLocation.getName();
-        InfoArray[2] = "Date/Time: "+Cinema.get(cinemaID).getTimeString();
+        InfoArray[0] = "Name: "+ Flight.get(cinemaID).getName();
+        InfoArray[1] = "Location: "+ Flight.currentLocation.getName();
+        InfoArray[2] = "Date/Time: "+ Flight.get(cinemaID).getTimeString();
         InfoArray[3] = "Seats: "+String.valueOf(seatList);
-        InfoArray[4] = "Price: "+String.format("%.2f",((Cinema.get(cinemaID).getPrice()*Cinema.currentLocation.getPaymentFactor())*seatList.size()))+"USD";
+        InfoArray[4] = "Price: "+String.format("%.2f",((Flight.get(cinemaID).getPrice()* Flight.currentLocation.getPaymentFactor())*seatList.size()))+"USD";
         InfoArray[5] = "Departure: "+ DepartureLocation.getSelectedCity();
 
         movieLabel = new JLabel(InfoArray[0]);

@@ -19,7 +19,7 @@ public class GUIUpdater {       //Hier wird unser GUI Frame instanziert um auf i
     }
 
     public static void updateFrame(JPanel Content) {    //Neues JPanel wird als ContentPane gesetzt
-        if(Content.getClass() != MovieDescriptionGUI.class) {    //Wenn das Panel eine ReservationGUI ist, werden die Dimensionen des Frames geändert
+        if(Content.getClass() != FlightDescriptionGUI.class) {    //Wenn das Panel eine ReservationGUI ist, werden die Dimensionen des Frames geändert
             if(Content.getClass() == CheckoutGUI.class) {
                 MainFrame.setPreferredSize(new Dimension(650,600));
                 MainFrame.setSize(new Dimension(650,600));

@@ -1,9 +1,6 @@
-package MoviePack;
+package FlightPack;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
-public enum MovieModel {    //Enum, da sich die values nie ändern
+public enum FlightModel {    //Enum, da sich die values nie ändern
     THIS_GUN_FOR_HIRE(101,"This Gun for Hire",
             "Sadistic killer-for-hire Raven (Alan Ladd) becomes enraged when his latest job is paid off in marked bills. Vowing to track down his double-crossing boss, nightclub executive Gates (Laird Cregar), Raven sits beside Gates' lovely new employee, Ellen (Veronica Lake), on a train out of town. Although Ellen is engaged to marry the police lieutenant (Robert Preston) who's hunting down Raven, she decides to try and set the misguided hit man straight as he hides from the cops and plots his revenge.",
             "src/main/resources/This_Gun_for_Hire_(1942)_poster.jpg",25.20),
@@ -22,7 +19,7 @@ public enum MovieModel {    //Enum, da sich die values nie ändern
     private final String imagePath;
     private final double price;
 
-    MovieModel(int ID, String name, String description, String imagePath,double price) { //assigned all die Values zu den Enums
+    FlightModel(int ID, String name, String description, String imagePath, double price) { //assigned all die Values zu den Enums
         this.ID = ID;
         this.name = name;
         this.description = description;
@@ -50,11 +47,11 @@ public enum MovieModel {    //Enum, da sich die values nie ändern
 
     //Methode um mit der ID einen Enum zu kriegen
 
-    public static MovieModel getEnum(int ID) {
+    public static FlightModel getEnum(int ID) {
         return switch (ID) {
-            case 101 -> MovieModel.THIS_GUN_FOR_HIRE;
-            case 102 -> MovieModel.AVATAR_WAY_OF_WATER;
-            default -> MovieModel.ONCE_UPON_A_TIME_IN_THE_WEST;
+            case 101 -> FlightModel.THIS_GUN_FOR_HIRE;
+            case 102 -> FlightModel.AVATAR_WAY_OF_WATER;
+            default -> FlightModel.ONCE_UPON_A_TIME_IN_THE_WEST;
         };
     }
 

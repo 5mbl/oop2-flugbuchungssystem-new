@@ -1,14 +1,13 @@
 package GUIPack;
 
-import CinemaPack.Cinema;
-import MoviePack.Movie;
+import FlightPack.Flight;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MovieDescriptionGUI extends JPanel {
+public class FlightDescriptionGUI extends JPanel {
     private final JPanel ImagePanel;
     private final JPanel InfoMasterPanel;
     private final JPanel TimeAndReservationPanel;
@@ -23,11 +22,11 @@ public class MovieDescriptionGUI extends JPanel {
     private final JButton reservationButton;
     private final JButton backButton;
 
-    private final Movie selectedMovie;
+    private final Flight selectedFlight;
     private final int cinemaID;
 
-    public MovieDescriptionGUI(int cinemaID) {                  //Hier sieht man die Beschreibung des Films
-        selectedMovie = Cinema.IDMovieHashMap.get(cinemaID);    //Holt den ausgesuchten Film von Cinema
+    public FlightDescriptionGUI(int cinemaID) {                  //Hier sieht man die Beschreibung des Films
+        selectedFlight = CinemaPack.Flight.IDFlightHashMap.get(cinemaID);    //Holt den ausgesuchten Film von Cinema
         this.cinemaID = cinemaID;
 
         setLayout(new BorderLayout());
@@ -43,11 +42,11 @@ public class MovieDescriptionGUI extends JPanel {
 
         TimeAndReservationPanel.setLayout(new GridLayout(3,1));
 
-        ImageLabel = new JLabel(new ImageIcon(selectedMovie.getImagePath()));   //Holt sich den Path vom Bild des Filmes
-        Time = new JLabel("Time: "+selectedMovie.getTimeString());      //Holt sich die Zeit des Films
+        ImageLabel = new JLabel(new ImageIcon(selectedFlight.getImagePath()));   //Holt sich den Path vom Bild des Filmes
+        Time = new JLabel("Time: "+ selectedFlight.getTimeString());      //Holt sich die Zeit des Films
         Time.setFont(new Font("Bold",Font.BOLD,30));
 
-        String text = selectedMovie.getDescription();
+        String text = selectedFlight.getDescription();
         int maxWordsPerLine = 7;
         String[] words = text.split(" ");
         StringBuilder wrappedText = new StringBuilder();
@@ -75,7 +74,7 @@ public class MovieDescriptionGUI extends JPanel {
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                MyWorker worker = new MyWorker(new TimePickerGUI(selectedMovie.getModel()));    //Wird benötigt, um ein EDT Error zu umgehen, siehe MyWorker Class
+                MyWorker worker = new MyWorker(new TimeslotSelect(selectedFlight.getModel()));    //Wird benötigt, um ein EDT Error zu umgehen, siehe MyWorker Class
                 worker.execute();
             }
         });

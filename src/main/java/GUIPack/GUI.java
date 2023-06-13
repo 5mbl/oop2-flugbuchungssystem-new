@@ -1,12 +1,6 @@
 package GUIPack;
 
-import MoviePack.MovieModel;
-
 import javax.swing.*;
-
-import java.awt.*;
-
-import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 public class GUI extends JFrame {   //Das ist unser MainFrame
     public GUI() {
