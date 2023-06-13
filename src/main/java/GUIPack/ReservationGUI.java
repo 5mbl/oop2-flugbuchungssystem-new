@@ -26,10 +26,10 @@ public class ReservationGUI extends JPanel {
     private final Flight selectedFlight;
     private boolean foundSelectedCheckbox;
 
-    public ReservationGUI(int cinemaID) {  //Hier kann man reservieren
+    public ReservationGUI(int airlineID) {  //Hier kann man reservieren
         ArrayList<Integer> reservedSeats = new ArrayList<>();
 
-        selectedFlight = Airline.IDFlightHashMap.get(cinemaID);
+        selectedFlight = Airline.IDFlightHashMap.get(airlineID);
 
         leftPanel = new JPanel();
         midPanel = new JPanel();
@@ -68,7 +68,7 @@ public class ReservationGUI extends JPanel {
                 for(Component checkbox:leftPanel.getComponents()) {
                     if(checkbox.getClass() == JCheckBox.class) {
                         if (((JCheckBox) checkbox).isSelected()) {
-                            Airline.IDFlightHashMap.get(cinemaID).reserveSeat(Integer.parseInt(((JCheckBox) checkbox).getLabel()));
+                            Airline.IDFlightHashMap.get(airlineID).reserveSeat(Integer.parseInt(((JCheckBox) checkbox).getLabel()));
                             checkbox.setEnabled(false);
                             reservedSeats.add(Integer.parseInt(((JCheckBox) checkbox).getLabel()));
                             foundSelectedCheckbox = true;
@@ -78,7 +78,7 @@ public class ReservationGUI extends JPanel {
                 for(Component checkbox:midPanel.getComponents()) {
                     if(checkbox.getClass() == JCheckBox.class) {
                         if (((JCheckBox) checkbox).isSelected()) {
-                            Airline.IDFlightHashMap.get(cinemaID).reserveSeat(Integer.parseInt(((JCheckBox) checkbox).getLabel()));
+                            Airline.IDFlightHashMap.get(airlineID).reserveSeat(Integer.parseInt(((JCheckBox) checkbox).getLabel()));
                             checkbox.setEnabled(false);
                             reservedSeats.add(Integer.parseInt(((JCheckBox) checkbox).getLabel()));
                             foundSelectedCheckbox = true;
@@ -88,7 +88,7 @@ public class ReservationGUI extends JPanel {
                 for(Component checkbox:rightPanel.getComponents()) {
                     if(checkbox.getClass() == JCheckBox.class) {
                         if(((JCheckBox) checkbox).isSelected()) {
-                            Airline.IDFlightHashMap.get(cinemaID).reserveSeat(Integer.parseInt(((JCheckBox) checkbox).getLabel()));
+                            Airline.IDFlightHashMap.get(airlineID).reserveSeat(Integer.parseInt(((JCheckBox) checkbox).getLabel()));
                             checkbox.setEnabled(false);
                             reservedSeats.add(Integer.parseInt(((JCheckBox) checkbox).getLabel()));
                             foundSelectedCheckbox = true;
@@ -102,7 +102,7 @@ public class ReservationGUI extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(foundSelectedCheckbox) {
-                    MyWorker worker = new MyWorker(new PaymentGUI(cinemaID,reservedSeats));
+                    MyWorker worker = new MyWorker(new PaymentGUI(airlineID,reservedSeats));
                     worker.execute();
                 } else {
                     GUIUpdater.showDialog("Please select and confirm at least one seat!");
@@ -115,10 +115,10 @@ public class ReservationGUI extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 if(!reservedSeats.isEmpty()) {
                     for(Integer integer:reservedSeats) {
-                        Airline.IDFlightHashMap.get(cinemaID).seatList[integer].changeReservationStatus();
+                        Airline.IDFlightHashMap.get(airlineID).seatList[integer].changeReservationStatus();
                     }
                 }
-                MyWorker worker = new MyWorker(new FlightDescriptionGUI(cinemaID));  //Wird benötigt um ein EDT Error zu umgehen siehe MyWorker Class
+                MyWorker worker = new MyWorker(new FlightDescriptionGUI(airlineID));  //Wird benötigt um ein EDT Error zu umgehen siehe MyWorker Class
                 worker.execute();
             }
         });
