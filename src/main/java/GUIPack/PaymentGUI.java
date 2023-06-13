@@ -64,10 +64,10 @@ public class PaymentGUI extends JPanel {
 
         InfoArray = new String[6];
         InfoArray[0] = "Name: "+ Airline.get(airlineID).getName();
-        InfoArray[1] = "Location: "+ Airline.currentLocation.getName();
+        InfoArray[1] = "Location: "+ Airline.currentDestination.getName();
         InfoArray[2] = "Date/Time: "+ Airline.get(airlineID).getTimeString();
         InfoArray[3] = "Seats: "+String.valueOf(seatList);
-        InfoArray[4] = "Price: "+String.format("%.2f",((Airline.get(airlineID).getPrice()* Airline.currentLocation.getPaymentFactor())*seatList.size()))+"USD";
+        InfoArray[4] = "Price: "+String.format("%.2f",((Airline.get(airlineID).getPrice()* Airline.currentDestination.getPaymentFactor())*seatList.size()))+"USD";
         InfoArray[5] = "Departure: "+ DepartureLocation.getSelectedCity();
 
         flightLabel = new JLabel(InfoArray[0]);

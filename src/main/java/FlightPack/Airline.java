@@ -1,8 +1,6 @@
 package FlightPack;
 
 import FileIO.FileReaderIO;
-import FlightPack.FlightModel;
-import FlightPack.Location;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,9 +12,9 @@ public class Airline {   //Cinema Klasse die Alle Filme speichert und abrufbar m
     private static AtomicInteger BillIDAtomicInteger = new AtomicInteger(10000);
     public static HashMap<Integer, FlightPack.Flight> IDFlightHashMap = new HashMap<Integer, FlightPack.Flight>();         //HashMap um mit einer ID auf den bestimmten Film zuzugreifen. Wichtigste HashMap, hier sind die Instanzen unserer Filme
     public static HashMap<FlightModel, ArrayList<Integer>> FlightIDsHashMap = new HashMap<>();    //Hier kann man auf alle IDs zugreifen die einem gemeinsamen MovieModel zugeteilt werden können aber unterschiedliche Uhrzeiten haben
-    public static HashMap<Location, ArrayList<Integer>> LocationIDsHashMap = new HashMap<>();
+    public static HashMap<Destination, ArrayList<Integer>> LocationIDsHashMap = new HashMap<>();
 
-    public static Location currentLocation; // Reiseziel
+    public static Destination currentDestination; // Reiseziel
 
 
 
@@ -24,8 +22,8 @@ public class Airline {   //Cinema Klasse die Alle Filme speichert und abrufbar m
         for(FlightModel model: FlightModel.values()) {         //HashMap wird mit leeren ArrayLists gefüllt, um Fehler vorzubeugen
             FlightIDsHashMap.put(model,new ArrayList<>());
         }
-        for(Location location :Location.values()) {
-            LocationIDsHashMap.put(location,new ArrayList<>());
+        for(Destination destination : Destination.values()) {
+            LocationIDsHashMap.put(destination,new ArrayList<>());
         }
     }
     public static ArrayList<Integer> IDList = new ArrayList<>();    //List aller IDs, hilfreich bei Fehlerbehebungen
@@ -38,18 +36,18 @@ public class Airline {   //Cinema Klasse die Alle Filme speichert und abrufbar m
         FlightIDsHashMap.get(flight.getModel()).add(FlightID);
     }
 
-    public static void addFlightWithLocation(FlightPack.Flight flight, Location location) {
+    public static void addFlightWithLocation(FlightPack.Flight flight, Destination destination) {
         int FlightID = atomicInteger.getAndIncrement();
         IDFlightHashMap.put(FlightID, flight);
         IDList.add(FlightID);
         FlightIDsHashMap.get(flight.getModel()).add(FlightID);
-        LocationIDsHashMap.get(location).add(FlightID);
+        LocationIDsHashMap.get(destination).add(FlightID);
     }
 
     public static void addAllFlightsFromEveryLocation() {
-        for(Location location:Location.values()) {
-            for(FlightPack.Flight flight :FileReaderIO.ReadAllMoviesFromLocation(location.getDataSheetPath())) {
-                addFlightWithLocation(flight,location);
+        for(Destination destination : Destination.values()) {
+            for(FlightPack.Flight flight :FileReaderIO.ReadAllMoviesFromLocation(destination.getDataSheetPath())) {
+                addFlightWithLocation(flight, destination);
             }
         }
     }
@@ -86,15 +84,15 @@ public class Airline {   //Cinema Klasse die Alle Filme speichert und abrufbar m
         Integer[] idList = FlightIDsHashMap.get(model).toArray(new Integer[0]);
         ArrayList<FlightPack.Flight> flightList = new ArrayList<>();
         for(int i = 0; i<idList.length; i++) {
-            if(LocationIDsHashMap.get(currentLocation).contains(idList[i])) {
+            if(LocationIDsHashMap.get(currentDestination).contains(idList[i])) {
                 flightList.add(IDFlightHashMap.get(idList[i]));
             }
         }
         return flightList.toArray(new FlightPack.Flight[0]);
     }
 
-    public static void changeCurrentLocation(Location location) {
-        currentLocation = location;
+    public static void changeCurrentLocation(Destination destination) {
+        currentDestination = destination;
     }
 
     public static int getBillID() {

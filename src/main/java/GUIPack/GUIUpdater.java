@@ -16,6 +16,7 @@ public class GUIUpdater {       //Hier wird unser GUI Frame instanziert um auf i
     public static void clearRootPanel() {           //GUI Frame wird gecleared
         MainFrame.getContentPane().removeAll();
         MainFrame.revalidate();
+
     }
 
     public static void updateFrame(JPanel Content) {    //Neues JPanel wird als ContentPane gesetzt

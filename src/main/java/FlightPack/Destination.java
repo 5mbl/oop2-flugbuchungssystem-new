@@ -1,13 +1,13 @@
 package FlightPack;
 
-public enum Location {
+public enum Destination {
     BERLIN("Berlin","src/main/resources/BerlinDateTimeSheet.csv",2.5),HAMBURG("Hamburg","src/main/resources/HamburgDateTimeSheet.csv",1.4),DRESDEN("Dresden","src/main/resources/DresdenDateTimeSheet.csv",1.1);
 
     private final String Name;
     private final String DataSheetPath;
     private final double PaymentFactor;
 
-    Location(String Name,String DataSheetPath,double PaymentFactor) {
+    Destination(String Name, String DataSheetPath, double PaymentFactor) {
         this.Name = Name;
         this.DataSheetPath = DataSheetPath;
         this.PaymentFactor = PaymentFactor;

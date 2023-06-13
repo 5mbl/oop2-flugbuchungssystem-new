@@ -28,9 +28,12 @@ public class WelcomeGUI extends JPanel {
         setLayout(new BorderLayout());
         backgroundImage = new ImageIcon("src/main/resources/backround.jpg");
 
+
         welcomeLabel = new JLabel("Willkommen auf Flugbuchung24");
-        welcomeLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        welcomeLabel.setFont(new Font("Bold", Font.BOLD, 50));
+        welcomeLabel.setPreferredSize(new Dimension(800,250));
+        welcomeLabel.setSize(new Dimension(800,250));
+        welcomeLabel.setFont(new Font("Bold",Font.BOLD,50));
+        welcomeLabel.setHorizontalTextPosition(JLabel.CENTER);
 
         continueButton = new JButton("Starten");
         continueButton.setBorder(BorderFactory.createLineBorder(Color.white, 20));
