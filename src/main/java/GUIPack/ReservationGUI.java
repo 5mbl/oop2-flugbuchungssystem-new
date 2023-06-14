@@ -10,102 +10,92 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class ReservationGUI extends JPanel {
-    private final JPanel leftPanel;
+
     private final JPanel midPanel;
-    private final JPanel rightPanel;
+
     private final JPanel topPanel;
     private final JPanel bottomPanel;
 
     private final ArrayList<JCheckBox> checkBoxArrayList = new ArrayList<>();
-
+    JRadioButton rb1 = new JRadioButton("squirrel");
     private final JButton confirm;
     private final JButton continueButton;
     private final JButton backButton;
-
-    private final JLabel screenLabel;
+    private JRadioButton economyRadioButton;
+    private JRadioButton businessRadioButton;
+    private JButton reserveButton;
+    private int selectedSeatNumber;
     private final Flight selectedFlight;
     private boolean foundSelectedCheckbox;
 
     public ReservationGUI(int airlineID) {  //Hier kann man reservieren
-        ArrayList<Integer> reservedSeats = new ArrayList<>();
+        ArrayList<Integer> reservedSeats = new ArrayList<>(); /// only one
 
         selectedFlight = Airline.IDFlightHashMap.get(airlineID);
 
-        leftPanel = new JPanel();
+
         midPanel = new JPanel();
-        rightPanel = new JPanel();
+
         topPanel = new JPanel();
         bottomPanel = new JPanel();
 
-        leftPanel.setLayout(new GridLayout(2,5));
-        midPanel.setLayout(new GridLayout(2,5));
-        rightPanel.setLayout(new GridLayout(2,5));
-        bottomPanel.setLayout(new FlowLayout());
+        midPanel.setLayout(new GridLayout(4,36));
 
-        for(int j = 0; j< selectedFlight.seatList.length; j++) {                                              //Loop um Checkboxes zu erstellen
-            JCheckBox checkBox = new JCheckBox(String.valueOf(j));
-            //checkBox.setSelectedIcon(new ImageIcon("src/main/java/GUIPack/Images/Selected.png"));   //Icons werden festgelegt
-            //checkBox.setIcon(new ImageIcon("src/main/java/GUIPack/Images/Unselected.png"));
+        bottomPanel.setLayout(new FlowLayout());
+        int numRows = 6; // Количество строк
+        int numColumns = 20; // Количество столбцов
+        int numSeatsPerColumn = 6; // Количество мест в каждом столбце
+        JRadioButton rb1 = new JRadioButton("squirrel");
+        for (int j = 0; j < selectedFlight.seatList.length; j++) {
+            int row = j % numRows + 1; // Вычисление номера строки
+            int column = j / numRows + 1; // Вычисление номера столбца
+
+            // Получение буквенного обозначения места
+            String seatLabel = getColumnLetter(column) + getRowLetter(row);
+
+            JCheckBox checkBox = new JCheckBox(seatLabel);
             if(selectedFlight.seatList[j].isReserved) {                                                      //Wenn Sitz schon reserviert ist, wird die CheckBox disabled
                 checkBox.setEnabled(false);
             }
             checkBoxArrayList.add(checkBox);
         }
 
-        for(int i = 0; i<10; i++) {                     //Die Checkboxes werden zu den Panels hinzugefügt
-            leftPanel.add(checkBoxArrayList.get(i));
-            midPanel.add(checkBoxArrayList.get(i+10));
-            rightPanel.add(checkBoxArrayList.get(i+20));
+        for (int j = 0; j < 40; j++) {
+            int row = j % 10 + 1;
+            int column = j / 10 + 1;
+
+            String seatLabel = getColumnLetter(column) + getRowLetter(row);
+
+            JCheckBox checkBox = new JCheckBox(seatLabel);
+            checkBoxArrayList.add(checkBox);
+            midPanel.add(checkBox);
+
         }
 
         confirm = new JButton("Confirm");
         continueButton = new JButton("Continue");
         backButton = new JButton("Back");
-        confirm.addActionListener(new ActionListener() {        //Hier werden alle Checkboxes überprüft und wenn sie gecheckt sind, werden sie reserviert
+        confirm.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                foundSelectedCheckbox = false;
-                for(Component checkbox:leftPanel.getComponents()) {
-                    if(checkbox.getClass() == JCheckBox.class) {
-                        if (((JCheckBox) checkbox).isSelected()) {
-                            Airline.IDFlightHashMap.get(airlineID).reserveSeat(Integer.parseInt(((JCheckBox) checkbox).getLabel()));
-                            checkbox.setEnabled(false);
-                            reservedSeats.add(Integer.parseInt(((JCheckBox) checkbox).getLabel()));
-                            foundSelectedCheckbox = true;
-                        }
-                    }
-                }
-                for(Component checkbox:midPanel.getComponents()) {
-                    if(checkbox.getClass() == JCheckBox.class) {
-                        if (((JCheckBox) checkbox).isSelected()) {
-                            Airline.IDFlightHashMap.get(airlineID).reserveSeat(Integer.parseInt(((JCheckBox) checkbox).getLabel()));
-                            checkbox.setEnabled(false);
-                            reservedSeats.add(Integer.parseInt(((JCheckBox) checkbox).getLabel()));
-                            foundSelectedCheckbox = true;
-                        }
-                    }
-                }
-                for(Component checkbox:rightPanel.getComponents()) {
-                    if(checkbox.getClass() == JCheckBox.class) {
-                        if(((JCheckBox) checkbox).isSelected()) {
-                            Airline.IDFlightHashMap.get(airlineID).reserveSeat(Integer.parseInt(((JCheckBox) checkbox).getLabel()));
-                            checkbox.setEnabled(false);
-                            reservedSeats.add(Integer.parseInt(((JCheckBox) checkbox).getLabel()));
-                            foundSelectedCheckbox = true;
-                        }
-                    }
-                }
+                selectedSeatNumber = getSelectedSeatNumber();
+                reservedSeats.add(selectedSeatNumber);
+                //System.out.println(selectedSeatNumber);
             }
         });
+
+
+
+
 
         continueButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(foundSelectedCheckbox) {
+                if(selectedSeatNumber != -1) { // check truthy
                     MyWorker worker = new MyWorker(new PaymentGUI(airlineID,reservedSeats));
                     worker.execute();
                 } else {
-                    GUIUpdater.showDialog("Please select and confirm at least one seat!");
+                    GUIUpdater.showDialog("Please select and confirm one seat!");
                 }
             }
         });
@@ -123,17 +113,12 @@ public class ReservationGUI extends JPanel {
             }
         });
 
-        screenLabel = new JLabel("Screen");
-        screenLabel.setBackground(Color.orange);
-        screenLabel.setPreferredSize(new Dimension(650,50));
-        screenLabel.setSize(650,50);
-        screenLabel.setHorizontalAlignment(JLabel.CENTER);
-        screenLabel.setBorder(BorderFactory.createLineBorder(Color.darkGray,5));
+
 
         setLayout(new BorderLayout());              //Dieses Layout erlaubt mir die Panels so anzulegen
 
         topPanel.add(backButton);
-        topPanel.add(screenLabel);
+
 
         bottomPanel.add(confirm);
         bottomPanel.add(continueButton);
@@ -141,14 +126,32 @@ public class ReservationGUI extends JPanel {
         //Hier werden die Panels an die richtige Stelle angelegt. Layout funktioniert noch nicht ganz richtig!
 
         add(topPanel,BorderLayout.PAGE_START);
-        add(leftPanel,BorderLayout.LINE_START);
+
         add(midPanel,BorderLayout.CENTER);
-        add(rightPanel,BorderLayout.LINE_END);
+
         add(bottomPanel,BorderLayout.PAGE_END);
 
         setSize(1280,400);
         setPreferredSize(new Dimension(1280,400));
 
         revalidate();
+    }
+    private int getSelectedSeatNumber() {
+        for (int i = 0; i < checkBoxArrayList.size(); i++) {
+            JCheckBox checkBox = checkBoxArrayList.get(i);
+            if (checkBox.isSelected()) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private String getColumnLetter(int column) {
+
+        return String.valueOf((char) ('A' + (column - 1)));
+    }
+
+    private String getRowLetter(int row) {
+        return String.valueOf((char) ('1' + (row - 1)));
     }
 }
