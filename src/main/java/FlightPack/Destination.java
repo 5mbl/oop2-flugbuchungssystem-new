@@ -1,7 +1,7 @@
 package FlightPack;
 
 public enum Destination {
-    BERLIN("Berlin","src/main/resources/BerlinDateTimeSheet.csv",2.5),HAMBURG("Hamburg","src/main/resources/HamburgDateTimeSheet.csv",1.4),DRESDEN("Dresden","src/main/resources/DresdenDateTimeSheet.csv",1.1);
+    BERLIN("Berlin","src/main/resources/BerlinerFlughafenDateTimeSheet.csv",2.5),HAMBURG("Hamburg","src/main/resources/HamburgFlughafenDateTimeSheet.csv",1.4),DRESDEN("Dresden","src/main/resources/DresdenFlughafenDateTimeSheet.csv",1.1);
 
     private final String Name;
     private final String DataSheetPath;

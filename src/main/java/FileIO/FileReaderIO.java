@@ -13,9 +13,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class FileReaderIO {   //Mit dieser Klasse werden die csv Dateien der Locations gelesen
-    public static ArrayList<Flight> ReadAllMovies() {    //Alte Methode mit nur einer csv Datei ohne unterschiedliche Locations
-        CSVReader reader = null;    //CSVReader von openCSV maven Dependency (siehe pom.xml Datei)
-        String path = "src/main/resources/MovieDateTimeSheet.csv";
+    public static ArrayList<Flight> ReadAllMovies() {
+        CSVReader reader = null;
+        String path = "src/main/resources/FlightDataTimeSheet.csv";
         ArrayList<Flight> flightArrayList = new ArrayList<>();
         try {
             reader = new CSVReader(new FileReader(path));
@@ -35,8 +35,8 @@ public class FileReaderIO {   //Mit dieser Klasse werden die csv Dateien der Loc
         }
     }
 
-    public static ArrayList<Flight> ReadAllMoviesFromLocation(String locationPath) {    //Liest jede CSV Datei
-        CSVReader reader = null;    //CSVReader von openCSV maven Dependency (siehe pom.xml Datei)
+    public static ArrayList<Flight> ReadAllFlightsFromLocation(String locationPath) {    //Liest jede CSV Datei
+        CSVReader reader = null;
         ArrayList<Flight> flightArrayList = new ArrayList<>();
         try {
             reader = new CSVReader(new FileReader(locationPath));

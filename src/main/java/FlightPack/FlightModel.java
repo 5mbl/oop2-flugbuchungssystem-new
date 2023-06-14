@@ -60,3 +60,10 @@ public enum FlightModel {    //Enum, da sich die values nie ändern
         return price;
     }
 }
+
+/*
+public enum FlightModel {
+    AIRLINE_1(1001,"NAME ...", "BESCHREIBUNG ...", int PREIS),
+    AIRLINE_2(1002,"NAME ...", "BESCHREIBUNG ...", int PREIS),
+    AIRLINE_3(1003,"NAME ...", "BESCHREIBUNG ...", int PREIS),
+ */

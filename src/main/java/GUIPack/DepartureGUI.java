@@ -23,10 +23,7 @@ public class DepartureGUI extends JPanel {
         DepartureLabel.setHorizontalAlignment(JLabel.CENTER);
 
         backButton = new JButton("Back");
-
-
         backButton.addActionListener(new DepartureGUI.BackActionListener());
-
         confirmButton = new JButton("confirm Departure");
 
 
@@ -53,6 +50,12 @@ public class DepartureGUI extends JPanel {
 
         //  JComboBox und füge die Departure Cities hinzu
         JComboBox<String> comboBox = new JComboBox<>(citiesArray);
+
+
+        String defaultValue = "Tokyo"; //  default value
+
+        comboBox.setSelectedItem(defaultValue);
+
         comboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

@@ -30,7 +30,15 @@ public class PaymentGUI extends JPanel {
 
     private String[] InfoArray;
 
+    private final int airlineID; // airlineID
+    ArrayList<Integer> reservedSeats = new ArrayList<>(); /// only one
+
+
+
+
     public PaymentGUI(int airlineID, ArrayList<Integer> seatList) {
+        this.airlineID = airlineID; // airline wird als param von der vorherigen Klassen weitergegeben. Diese setten wir mit unserer Privaten Variable (benötigt für Bill Klasse)
+        this.reservedSeats = seatList; // reservierte Sitzplätze wird als param weitergegeben. Wir fangen diese auf und setzten es wieder zu unserer Privaten Var. (benötigt für Bill Klasse)
         setLayout(new BorderLayout());
 
         Abort = new JButton("Abort");
@@ -64,9 +72,9 @@ public class PaymentGUI extends JPanel {
 
         InfoArray = new String[6];
         InfoArray[0] = "Name: "+ Airline.get(airlineID).getName();
-        InfoArray[1] = "Location: "+ Airline.currentDestination.getName();
+        InfoArray[1] = "Destination: "+ Airline.currentDestination.getName();
         InfoArray[2] = "Date/Time: "+ Airline.get(airlineID).getTimeString();
-        InfoArray[3] = "Seats: "+String.valueOf(seatList);
+        InfoArray[3] = "Seat Number: "+String.valueOf(seatList);
         InfoArray[4] = "Price: "+String.format("%.2f",((Airline.get(airlineID).getPrice()* Airline.currentDestination.getPaymentFactor())*seatList.size()))+"USD";
         InfoArray[5] = "Departure: "+ DepartureLocation.getSelectedCity();
 
@@ -105,7 +113,9 @@ public class PaymentGUI extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             if(PaymentBox.getSelectedItem() != null && !nameField.getText().isEmpty()) {
-                MyWorker worker = new MyWorker(new CheckoutGUI(PaymentBox.getSelectedItem().toString(),nameField.getText(),InfoArray));
+                //MyWorker worker = new MyWorker(new CheckoutGUI(PaymentBox.getSelectedItem().toString(),nameField.getText(),InfoArray));
+
+                MyWorker worker = new MyWorker(new Bill(airlineID,reservedSeats));
                 worker.execute();
             } else {
                 if(PaymentBox.getSelectedItem() == null) {

@@ -26,9 +26,9 @@ public class DestinyLocationPickerGUI extends JPanel {
         InstructionLabel.setHorizontalTextPosition(JLabel.CENTER);
         InstructionLabel.setHorizontalAlignment(JLabel.CENTER);
 
-        BerlinButton = new JButton("Berlin");
-        HamburgButton = new JButton("Hamburg");
-        DresdenButton = new JButton("Dresden");
+        BerlinButton = new JButton("BER AIRPORT");
+        HamburgButton = new JButton("Hamburg Airport");
+        DresdenButton = new JButton("Dresden Airport");
         backButton = new JButton("Back");
 
         BerlinButton.setPreferredSize(new Dimension(800/3,100));
