@@ -17,6 +17,7 @@ public class PaymentGUI extends JPanel {
 
     private final JLabel nameInstruction;
     private final JTextField nameField;
+    private String nameStore;
 
     private final JPanel InfoPanel;
     private final JPanel BottomPanel;
@@ -106,6 +107,8 @@ public class PaymentGUI extends JPanel {
         add(BottomPanel,BorderLayout.PAGE_END);
 
         revalidate();
+
+
     }
 
     private class CheckOutActionListener implements ActionListener {
@@ -114,8 +117,8 @@ public class PaymentGUI extends JPanel {
         public void actionPerformed(ActionEvent e) {
             if(PaymentBox.getSelectedItem() != null && !nameField.getText().isEmpty()) {
                 //MyWorker worker = new MyWorker(new CheckoutGUI(PaymentBox.getSelectedItem().toString(),nameField.getText(),InfoArray));
-
-                MyWorker worker = new MyWorker(new Bill(airlineID,reservedSeats));
+                nameStore = nameField.getText(); // nimm den Text aus den TExtfield und speichert es in nameStore variable, damit er es als Param weiter geben kann
+                MyWorker worker = new MyWorker(new Bill(airlineID,reservedSeats, nameStore));
                 worker.execute();
             } else {
                 if(PaymentBox.getSelectedItem() == null) {
