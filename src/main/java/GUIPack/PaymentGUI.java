@@ -17,7 +17,6 @@ public class PaymentGUI extends JPanel {
 
     private final JLabel nameInstruction;
     private final JTextField nameField;
-    private String nameStore;
 
     private final JPanel InfoPanel;
     private final JPanel BottomPanel;
@@ -31,15 +30,17 @@ public class PaymentGUI extends JPanel {
 
     private String[] InfoArray;
 
+    private final String seatID; // airlineID
     private final int airlineID; // airlineID
     ArrayList<Integer> reservedSeats = new ArrayList<>(); /// only one
 
 
 
 
-    public PaymentGUI(int airlineID, ArrayList<Integer> seatList) {
+    public PaymentGUI(int airlineID, ArrayList<Integer> seatList, String selectedSeatNumber) {
         this.airlineID = airlineID; // airline wird als param von der vorherigen Klassen weitergegeben. Diese setten wir mit unserer Privaten Variable (benötigt für Bill Klasse)
         this.reservedSeats = seatList; // reservierte Sitzplätze wird als param weitergegeben. Wir fangen diese auf und setzten es wieder zu unserer Privaten Var. (benötigt für Bill Klasse)
+        this.seatID=selectedSeatNumber;
         setLayout(new BorderLayout());
 
         Abort = new JButton("Abort");
@@ -67,6 +68,7 @@ public class PaymentGUI extends JPanel {
         nameInstruction = new JLabel("-Enter your Name-");
         nameInstruction.setHorizontalAlignment(JLabel.RIGHT);
         nameField = new JTextField();
+        //NutzerName =nameField.getText();
 
         InfoPanel = new JPanel();
         BottomPanel = new JPanel();
@@ -75,7 +77,7 @@ public class PaymentGUI extends JPanel {
         InfoArray[0] = "Name: "+ Airline.get(airlineID).getName();
         InfoArray[1] = "Destination: "+ Airline.currentDestination.getName();
         InfoArray[2] = "Date/Time: "+ Airline.get(airlineID).getTimeString();
-        InfoArray[3] = "Seat Number: "+String.valueOf(seatList);
+        InfoArray[3] = "Seat Number: "+ seatID;
         InfoArray[4] = "Price: "+String.format("%.2f",((Airline.get(airlineID).getPrice()* Airline.currentDestination.getPaymentFactor())*seatList.size()))+"USD";
         InfoArray[5] = "Departure: "+ DepartureLocation.getSelectedCity();
 
@@ -107,9 +109,8 @@ public class PaymentGUI extends JPanel {
         add(BottomPanel,BorderLayout.PAGE_END);
 
         revalidate();
-
-
     }
+
 
     private class CheckOutActionListener implements ActionListener {
 
@@ -117,8 +118,9 @@ public class PaymentGUI extends JPanel {
         public void actionPerformed(ActionEvent e) {
             if(PaymentBox.getSelectedItem() != null && !nameField.getText().isEmpty()) {
                 //MyWorker worker = new MyWorker(new CheckoutGUI(PaymentBox.getSelectedItem().toString(),nameField.getText(),InfoArray));
-                nameStore = nameField.getText(); // nimm den Text aus den TExtfield und speichert es in nameStore variable, damit er es als Param weiter geben kann
-                MyWorker worker = new MyWorker(new Bill(airlineID,reservedSeats, nameStore));
+
+                MyWorker worker = new MyWorker(new Bill(airlineID,reservedSeats, nameField.getText(),seatID));
+                System.out.println(nameField.getText());
                 worker.execute();
             } else {
                 if(PaymentBox.getSelectedItem() == null) {
