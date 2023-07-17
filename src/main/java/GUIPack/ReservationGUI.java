@@ -46,6 +46,7 @@ public class ReservationGUI extends JPanel {
 
             String seatLabel = getColumnLetter(column) + getRowLetter(row);
             JRadioButton radioButton = new JRadioButton(seatLabel);
+            radioButton.setActionCommand(seatLabel);
             seats.add(radioButton);
             midPanel.add(radioButton);
 
@@ -81,7 +82,8 @@ public class ReservationGUI extends JPanel {
         continueButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(selectedSeatNumber !=null) { // check truthy
+                if(selectedSeatNumber !=null && seats.getSelection().getActionCommand().equals(selectedSeatNumber)) { // check truthy
+
                     MyWorker worker = new MyWorker(new PaymentGUI(airlineID,reservedSeats, selectedSeatNumber));
                     worker.execute();
                 } else {
@@ -132,4 +134,3 @@ public class ReservationGUI extends JPanel {
         return String.valueOf((char) ('1' + (row - 1)));
     }
 }
-

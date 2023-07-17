@@ -58,7 +58,7 @@ public class Airline {   //Airline Klasse die Alle Flüge speichert und abrufbar
         return IDFlightHashMap.get(FlightID);
     }
 
-    public static Integer getFlightID(FlightPack.Flight flight) {    //Hier gibt man ein Movie an um an die FlightID zu kommen. Hilfreich falls man auf die richtige Instanz des Flugs in Cinema zugreifen möchte um Beispielsweise die Reservierung zu ändern
+    public static Integer getFlightID(FlightPack.Flight flight) {    //Hier gibt man ein Flug an um an die FlightID zu kommen. Hilfreich falls man auf die richtige Instanz des Flugs in Cinema zugreifen möchte um Beispielsweise die Reservierung zu ändern
         for(Map.Entry<Integer, FlightPack.Flight> entry:IDFlightHashMap.entrySet()) {
             if(entry.getValue().dateTime == flight.dateTime && entry.getValue().getModel() == flight.getModel()) {    //Vergleicht das Datum und das Model
                 return entry.getKey();
