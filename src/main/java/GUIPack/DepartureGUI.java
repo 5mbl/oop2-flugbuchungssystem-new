@@ -52,9 +52,10 @@ public class DepartureGUI extends JPanel {
         JComboBox<String> comboBox = new JComboBox<>(citiesArray);
 
 
+        // DEFAULT
         String defaultValue = "Tokyo"; //  default value
-
         comboBox.setSelectedItem(defaultValue);
+        departureLocation.setSelectedCity(defaultValue);
 
         comboBox.addActionListener(new ActionListener() {
             @Override

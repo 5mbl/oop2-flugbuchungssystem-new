@@ -116,8 +116,9 @@ public class ReservationGUI extends JPanel {
 
         add(bottomPanel,BorderLayout.PAGE_END);
 
-        setSize(1280,400);
-        setPreferredSize(new Dimension(1280,400));
+        //setSize(1280,400);
+        //setPreferredSize(new Dimension(1280,400));
+
 
         revalidate();
     }

@@ -26,7 +26,7 @@ public class FlightDescriptionGUI extends JPanel {
     private final Flight selectedFlight;
     private final int airlineID;
 
-    public FlightDescriptionGUI(int airlineID) {                  //Hier sieht man die Beschreibung des Films
+    public FlightDescriptionGUI(int airlineID) {                  //Hier sieht man die Beschreibung der airlines
         selectedFlight = Airline.IDFlightHashMap.get(airlineID);    //Holt den ausgesuchten Film von airline
         this.airlineID = airlineID;
 
@@ -40,11 +40,10 @@ public class FlightDescriptionGUI extends JPanel {
         TextPanel = new JPanel();
         HeaderPanel = new JPanel();
 
-
         TimeAndReservationPanel.setLayout(new GridLayout(3,1));
 
-        ImageLabel = new JLabel(new ImageIcon(selectedFlight.getImagePath()));   //Holt sich den Path vom Bild des Filmes
-        Time = new JLabel("Time: "+ selectedFlight.getTimeString());      //Holt sich die Zeit des Films
+        ImageLabel = new JLabel(new ImageIcon(selectedFlight.getImagePath()));   //Holt sich den Path vom Bild der airline
+        Time = new JLabel("Time: "+ selectedFlight.getTimeString());      //Holt sich die Zeiten der airline
         Time.setFont(new Font("Bold",Font.BOLD,30));
 
         String text = selectedFlight.getDescription();
@@ -59,7 +58,7 @@ public class FlightDescriptionGUI extends JPanel {
                 wrappedText.append("\n");
             }
         }
-        FlightDescription = new JTextArea(wrappedText.toString());       //Beschreibung des Films
+        FlightDescription = new JTextArea(wrappedText.toString());       //Beschreibung der airline
         FlightDescription.setFont(new Font("Arial", Font.PLAIN, 25));
 
         reservationButton = new JButton("Reserve");
@@ -97,8 +96,11 @@ public class FlightDescriptionGUI extends JPanel {
         add(ImagePanel,BorderLayout.LINE_START);
 
 
-        setPreferredSize(new Dimension(1280,1080));
-        setSize(new Dimension(1280,1080));
+        //setPreferredSize(new Dimension(1280,1080));
+        //setSize(new Dimension(1280,1080));
+        setPreferredSize(new Dimension(800,250));
+        setSize(new Dimension(800,250));
+
 
         revalidate();
     }
