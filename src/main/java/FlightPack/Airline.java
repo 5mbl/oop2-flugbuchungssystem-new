@@ -11,7 +11,7 @@ public class Airline {   //Airline Klasse die Alle Flüge speichert und abrufbar
     private static AtomicInteger atomicInteger = new AtomicInteger(10000);  //Gibt jedem Flug eine einzigartige ID
     private static AtomicInteger BillIDAtomicInteger = new AtomicInteger(10000);
     public static HashMap<Integer, FlightPack.Flight> IDFlightHashMap = new HashMap<Integer, FlightPack.Flight>();         //HashMap um mit einer ID auf den bestimmten Flug zuzugreifen. Wichtigste HashMap, hier sind die Instanzen unserer Flüge
-    public static HashMap<FlightModel, ArrayList<Integer>> FlightIDsHashMap = new HashMap<>();    //Hier kann man auf alle IDs zugreifen die einem gemeinsamen MovieModel zugeteilt werden können aber unterschiedliche Uhrzeiten haben
+    public static HashMap<FlightModel, ArrayList<Integer>> FlightIDsHashMap = new HashMap<>();    //Hier kann man auf alle IDs zugreifen die einem gemeinsamen FlightModel zugeteilt werden können aber unterschiedliche Uhrzeiten haben
     public static HashMap<Destination, ArrayList<Integer>> LocationIDsHashMap = new HashMap<>();
 
     public static Destination currentDestination; // Reiseziel
@@ -58,7 +58,7 @@ public class Airline {   //Airline Klasse die Alle Flüge speichert und abrufbar
         return IDFlightHashMap.get(FlightID);
     }
 
-    public static Integer getFlightID(FlightPack.Flight flight) {    //Hier gibt man ein Flug an um an die FlightID zu kommen. Hilfreich falls man auf die richtige Instanz des Flugs in Cinema zugreifen möchte um Beispielsweise die Reservierung zu ändern
+    public static Integer getFlightID(FlightPack.Flight flight) {    //Hier gibt man ein Flug an um an die FlightID zu kommen. Hilfreich falls man auf die richtige Instanz des Flugs in Flight zugreifen möchte um Beispielsweise die Reservierung zu ändern
         for(Map.Entry<Integer, FlightPack.Flight> entry:IDFlightHashMap.entrySet()) {
             if(entry.getValue().dateTime == flight.dateTime && entry.getValue().getModel() == flight.getModel()) {    //Vergleicht das Datum und das Model
                 return entry.getKey();
