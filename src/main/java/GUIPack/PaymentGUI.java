@@ -120,7 +120,7 @@ public class PaymentGUI extends JPanel {
             if(PaymentBox.getSelectedItem() != null && !nameField.getText().isEmpty()) {
                 //MyWorker worker = new MyWorker(new CheckoutGUI(PaymentBox.getSelectedItem().toString(),nameField.getText(),InfoArray));
 
-                MyWorker worker = new MyWorker(new Bill(airlineID,reservedSeats, nameField.getText(),seatID));
+                MyWorker worker = new MyWorker(new BillGUI(airlineID,reservedSeats, nameField.getText(),seatID));
                 System.out.println(nameField.getText());
                 worker.execute();
             } else {

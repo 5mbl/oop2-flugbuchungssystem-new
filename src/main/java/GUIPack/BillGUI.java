@@ -12,7 +12,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Bill extends JPanel{
+public class BillGUI extends JPanel{
     private final JButton EndSession;
     private String nutzerName;
     private final JPanel InfoPanel;
@@ -32,7 +32,7 @@ public class Bill extends JPanel{
 
 
 
-    public Bill(int airlineID, ArrayList<Integer> seatList, String nutzerName,String seatID){
+    public BillGUI(int airlineID, ArrayList<Integer> seatList, String nutzerName, String seatID){
         setLayout(new BorderLayout());
         this.nutzerName= nutzerName;
 

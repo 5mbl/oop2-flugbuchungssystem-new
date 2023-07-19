@@ -74,7 +74,7 @@ public class FlightDescriptionGUI extends JPanel {
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                MyWorker worker = new MyWorker(new TimeslotSelect(selectedFlight.getModel()));    //Wird benötigt, um ein EDT Error zu umgehen, siehe MyWorker Class
+                MyWorker worker = new MyWorker(new TimeslotSelectGUI(selectedFlight.getModel()));    //Wird benötigt, um ein EDT Error zu umgehen, siehe MyWorker Class
                 worker.execute();
             }
         });

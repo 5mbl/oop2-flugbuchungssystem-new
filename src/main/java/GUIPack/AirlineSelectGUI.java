@@ -40,7 +40,7 @@ public class AirlineSelectGUI extends JPanel {
             button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    MyWorker worker = new MyWorker(new TimeslotSelect(model));
+                    MyWorker worker = new MyWorker(new TimeslotSelectGUI(model));
                     worker.execute();
                 }
             });

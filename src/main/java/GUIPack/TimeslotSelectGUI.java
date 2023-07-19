@@ -10,13 +10,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class TimeslotSelect extends JPanel {
+public class TimeslotSelectGUI extends JPanel {
     private final ArrayList<JButton> buttonList = new ArrayList<>();
     private final JButton backButton;
 
     private final JPanel masterPanel;
 
-    public TimeslotSelect(FlightModel model) {
+    public TimeslotSelectGUI(FlightModel model) {
         masterPanel = new JPanel();
         masterPanel.setLayout(new GridBagLayout()); // Verwende ein GridBagLayout für das Master-Panel um die Buttonposition zu bestimmen
 
