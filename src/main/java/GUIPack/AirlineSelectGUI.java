@@ -8,14 +8,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class AirlineSelectGUI extends JPanel {                            //StartPanel also kein backButton
+public class AirlineSelectGUI extends JPanel {
     private final ArrayList<JButton> buttonList = new ArrayList<>();
     private final JButton backButton;
-    private final JPanel MasterPanel;
+    private final JPanel masterPanel;
 
     public AirlineSelectGUI() {
-        MasterPanel = new JPanel();
-        MasterPanel.setLayout(new GridLayout(FlightModel.values().length, 1));
+        setLayout(new BorderLayout());
+        masterPanel = new JPanel();
+        masterPanel.setLayout(new GridBagLayout());
 
         backButton = new JButton("Back");
         backButton.addActionListener(new ActionListener() {
@@ -26,27 +27,35 @@ public class AirlineSelectGUI extends JPanel {                            //Star
             }
         });
 
-        MasterPanel.add(backButton);
+        GridBagConstraints gbc = new GridBagConstraints(); //wird verwendet, um anzugeben, wie eine Komponente innerhalb eines GridBag-Layout positioniert und gestreckt werden soll.
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.insets = new Insets(10, 0, 0, 0); //Fügt einen Abstand von 10 Pixeln oben hinzu
+        masterPanel.add(backButton, gbc);
 
-        for(FlightModel model: FlightModel.values()) {                     //Für alle unterschiedlichen Filme in MovieModel wird ein Button erzeugt
-            JButton button = new JButton(model.getName());
+        int gridY = 1;
+        for (FlightModel model : FlightModel.values()) {  // Iteriere über jede FlightModel-Wert
+            JButton button = new JButton(model.getName());  // Erstellt einen neuen JButton mit dem Namen des FlightModel
             button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    MyWorker worker = new MyWorker(new TimeslotSelect(model)); //Wird benötigt, um ein EDT Error zu umgehen, siehe MyWorker Class
+                    MyWorker worker = new MyWorker(new TimeslotSelect(model));
                     worker.execute();
                 }
             });
-            buttonList.add(button); // alle film buttons werden in buttonlist hinzugefügt
+            buttonList.add(button);
+            gbc.gridy = gridY++;
+            masterPanel.add(button, gbc);
         }
 
-
-        for(JButton button:buttonList) { // buttonlist wird geloopt und im Jpanel angezeigt
-            button.setSize(800/5,350/ FlightModel.values().length);
-            MasterPanel.add(button);
+        for (JButton button : buttonList) {
+            button.setPreferredSize(new Dimension(200, 50));
         }
+        backButton.setPreferredSize(new Dimension(200, 50)); // Anpassung der Back-Button-Größe
 
-        add(MasterPanel);
+
+        add(masterPanel, BorderLayout.CENTER);
 
         revalidate();
     }

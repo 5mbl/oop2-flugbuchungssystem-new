@@ -94,8 +94,8 @@ public class Bill extends JPanel{
         InfoArray[3] = "Date/Time: "+ Airline.get(airlineID).getTimeString();
         InfoArray[4] = "Seat Number: "+seatID;
         InfoArray[5] = "Name: "+nutzerName;
-        InfoArray[6] = "Price: "+String.format("%.2f",((Airline.get(airlineID).getPrice()* Airline.currentDestination.getPaymentFactor())*seatList.size()))+"$";
-
+        double totalPrice = Airline.get(airlineID).getPrice() * Airline.currentDestination.getPaymentFactor();
+        InfoArray[6] = "Price: " + String.format("%.2f USD", totalPrice);
 
         flightLabel = new JLabel(InfoArray[0]);
         departureLable = new JLabel(InfoArray[1]);

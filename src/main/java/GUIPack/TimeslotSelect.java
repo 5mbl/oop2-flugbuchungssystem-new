@@ -10,48 +10,62 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class TimeslotSelect extends JPanel {                                                             //Hier wählt man aus an welchem Datum, man den Film schauen will
-    private final ArrayList<JButton> buttonList = new ArrayList<>();                                    //buttonList für alle verschiedenen Daten die in Cinema zur verfügung stehen
+public class TimeslotSelect extends JPanel {
+    private final ArrayList<JButton> buttonList = new ArrayList<>();
     private final JButton backButton;
 
-    private final JPanel MasterPanel;
-    public TimeslotSelect(FlightModel Model) {
-        MasterPanel = new JPanel();
-        MasterPanel.setLayout(new GridLayout(FlightModel.values().length, 1));
+    private final JPanel masterPanel;
+
+    public TimeslotSelect(FlightModel model) {
+        masterPanel = new JPanel();
+        masterPanel.setLayout(new GridBagLayout()); // Verwende ein GridBagLayout für das Master-Panel um die Buttonposition zu bestimmen
+
+        // Erzeuge GridBagConstraints-Objekt
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0; // Setzt die grid x-Position auf 0 (erste Spalte)
+        gbc.gridy = 0;
+        gbc.insets = new Insets(10, 0, 0, 0); // Setze den Abstand von 10 Pixeln oben
 
         backButton = new JButton("Back");
-        backButton.addActionListener(new ActionListener() {                                             //Um auf die vorherige Seite zurückzukehren
+        backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                MyWorker worker = new MyWorker(new AirlineSelectGUI());                                   //Wird benötigt um ein EDT Error zu umgehen siehe MyWorker Class
+                MyWorker worker = new MyWorker(new AirlineSelectGUI());
                 worker.execute();
             }
         });
 
-        MasterPanel.add(backButton);
+        // Füge den backButton mit den GridBagConstraints zum masterPanel hinzu
+        masterPanel.add(backButton, gbc);
 
-        for(Flight flight : Airline.getFlightFromCurrentLocation(Model)) {                                                     //Sucht jeden Movie mit dem gleichen Model in Cinema um die verschiedenen Daten zu kriegen
-            JButton button = new JButton(flight.getTimeString()); // getTime String
-            button.addActionListener(new ActionListener() {                                             //ActionListener geht zur nächsten Seite
+        int gridY = 1; // Starte mit gridY=1 für die nächste Zeile der Buttons
+
+        for (Flight flight : Airline.getFlightFromCurrentLocation(model)) {
+            JButton button = new JButton(flight.getTimeString());
+            button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    MyWorker worker = new MyWorker(new FlightDescriptionGUI(Airline.getFlightID(flight))); //Wird benötigt um ein EDT Error zu umgehen siehe MyWorker Class
+                    MyWorker worker = new MyWorker(new FlightDescriptionGUI(Airline.getFlightID(flight)));
                     worker.execute();
                 }
             });
             buttonList.add(button);
+
+            gbc.gridy = gridY++; // Aktualisiere die grid y-Position für die nächste Zeile der Buttons
+
+            // Füge den button mit den GridBagConstraints zum masterPanel hinzu
+            masterPanel.add(button, gbc);
         }
 
-        for(JButton button:buttonList) {
-            button.setSize(1280/5,1080/ FlightModel.values().length);                         //Buttons werden gesized
-            MasterPanel.add(button);                                                                    //Alle buttons werden zum Panel geadded
+        // Setze alle Buttons auf die gleiche Größe
+        Dimension buttonSize = new Dimension(200, 100 / FlightModel.values().length);
+        for (JButton button : buttonList) {
+            button.setPreferredSize(buttonSize);
         }
+        backButton.setPreferredSize(new Dimension(200, 32)); // Anpassung der Back-Button-Größe
 
-        add(MasterPanel);
+        add(masterPanel);
 
         revalidate();
     }
-
-
-
 }
